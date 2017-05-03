@@ -62,7 +62,7 @@ module.exports.initErrorRoutes = function (app) {
         // Log it
         console.error(err.stack);
         // Redirect to error page
-        res.redirect('/server-error.html');
+        return res.json(err.stack);
     });
 };
 
