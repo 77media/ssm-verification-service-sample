@@ -1,0 +1,35 @@
+{
+  "name": "ssm-verification-service-sample",
+  "version": "1.0.0",
+  "description": "Sample user verification service that will either return a formatted user object or false.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/77media/ssm-verification-service-sample.git"
+  },
+  "keywords": [
+    "nodejs",
+    "security",
+    "expressjs",
+    "rest-api",
+    "json",
+    "javascript"
+  ],
+  "author": "77media",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/77media/ssm-verification-service-sample/issues"
+  },
+  "homepage": "https://github.com/77media/ssm-verification-service-sample#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "chalk": "^1.1.1",
+    "express": "^4.15.2",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.7",
+    "winston": "^2.3.1"
+  }
+}
