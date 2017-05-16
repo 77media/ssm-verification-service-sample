@@ -8,43 +8,43 @@ var _ = require('lodash');
 module.exports = function (app) {
 
 	/**
-	* @api {get} /verify User
+	* @api {post} /verify User
 	* @apiName VerifyUser
 	*/
-    app.route('/api/verify').get(function (req, res) {
-        if ((req.query.membership % 1 === 0) === false) {
-            return res.status(404).send({
-                message: 'User is invalid'
-            });
+    app.route('/api/verify').post(function (req, res) {
+        if ((req.body.confirmationNumber % 1 === 0) === false) {
+            return res.status(500);
         }
+        // TODO: query a real database or file
+        var membershipExpiration = new Date(2020, 1, 1, null, null, null, null);
         var users = [
             {
-                membership: '12341', firstName: 'first1', lastName: 'lastName1', id: 1
-            },
-            {
-                membership: '12342', firstName: 'first2', lastName: 'lastName2', id: 2
-            },
-            {
-                membership: '12343', firstName: 'first3', lastName: 'lastName3', id: 3
-            },
-            {
-                membership: '12344', firstName: 'first4', lastName: 'lastName4', id: 4
+                id: 1,
+                firstName: "John",
+                lastName: "Doe",
+                confirmationNumber: "4567",
+                scanCode: "890",
+                membershipId: "12345",
+                membershipExpiration: membershipExpiration
             }
         ];
 
-        var user = _.find(users, { membership: req.query.membership });
+        var item = _.find(users, { lastName: req.body.lastName, confirmationNumber: req.body.confirmationNumber });
 
-        if (!user) {
-            return res.status(404).send({
-                message: 'No users with that identifier has been found',
-                verified: false
-            });
+        if (!item) {
+            return res.status(404);
         } else {
-            user.verified = true;
-            return res.json(user);
+            // TODO: map your own object to the response
+            var verifyResponse = {
+                id: item.id,
+                firstName: item.firstName,
+                lastName: item.lastName,
+                membershipId: item.membershipId,
+                membershipExpiration: item.membershipExpiration,
+                isValid: true
+            };
+            return res.json(verifyResponse);
         }
-
-
     });
 
 };
