@@ -7,11 +7,10 @@ A POST is preferred to a GET because more fields can be sent and data is not log
 In production the route should always be secured with SSL encryption via https.
 
 HTTP POST
-http://localhost:3000/api/verify
+https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 ```javascript
 {  
-    "lastName": "Doe",
     "confirmationNumber": "4567" 
 }  
 ```
@@ -43,13 +42,11 @@ http://localhost:3000/api/verify
 
 
 HTTP POST
-http://localhost:3000/api/verify
+https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 ```javascript
 { 
-    "lastName": "SDFSDF",
-    "confirmationNumber": "12324", 
-    "scanCode": ""
+    "confirmationNumber": "12324"
 }
 ```
 

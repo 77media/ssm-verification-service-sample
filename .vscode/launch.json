@@ -17,7 +17,8 @@
 				"--nolazy"
 			],
 			"env": {
-				"NODE_ENV": "development"
+				"NODE_ENV": "development",
+                "PORT": "5000"
 			},
 			"sourceMaps": false,
 			"protocol": "inspector"
