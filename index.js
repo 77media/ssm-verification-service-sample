@@ -3,5 +3,5 @@
 /**
  * Module dependencies.
  */
-var app = require('./server');
+var app = require('./app/server');
 var server = app.start();
