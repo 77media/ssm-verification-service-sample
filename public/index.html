@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>77media Verification Service Sample</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+</head>
+
+<body ng-app="ssmVerificationServiceClientApp">
+  <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <div class="header">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          <a class="navbar-brand" href="/">77media Verification Service Sample</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" ng-controller="MainCtrl">
+    <div>
+      <div class="panel">
+        <h1>Verify</h1>
+        <p class="lead">
+
+        </p>
+      </div>
+
+      <form role="form" name="form" angular-validator novalidate>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group hr">
+              <label class="control-label">Confirmation Number </label>
+              <input ng-model="confirmationNumber" type="text" />
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-wide btn-success" ng-click="search()">Search</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel">
+              <pre>
+                <code>
+$scope.data = {
+    confirmationNumber: {{confirmationNumber}}
+};
+console.log($scope.data);
+$http.post('/api/verify/', $scope.data).then(
+    function (success) {
+        console.log(success);
+        $scope.result = success.data;
+        $scope.isLoading = false;
+    },
+    function (error) {
+        $scope.isLoading = false;
+        console.log(error);
+        $scope.result = null;
+        $scope.error = error.data;
+    }
+);
+
+                </code>
+              </pre>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <p> Result
+            <ul ng-if="result">
+              <li>{{result.id}}</li>
+              <li>{{result.firstName}}</li>
+              <li>{{result.lastName}}</li>
+              <li>{{result.confirmationNumber}}</li>
+              <li>{{result.membershipId}}</li>
+              <li>{{result.membershipExpiration}}</li>
+            </ul>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p><span class="glyphicon glyphicon-heart"></span> from the 77media</p>
+    </div>
+  </div>
+
+
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <script>
+    !function (A, n, g, u, l, a, r) {
+      A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
+        r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+  </script>
+  <!-- bower:js -->
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- endbower -->
+  <script src="app.js"></script>
+</body>
+
+</html>

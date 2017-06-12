@@ -3,7 +3,9 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash');
+var _ = require('lodash'),
+    path = require('path'),
+    serveStatic = require('serve-static');
 
 module.exports = function (app) {
 
@@ -29,7 +31,7 @@ module.exports = function (app) {
             }
         ];
 
-        var item = _.find(users, { lastName: req.body.lastName, confirmationNumber: req.body.confirmationNumber });
+        var item = _.find(users, { confirmationNumber: req.body.confirmationNumber });
 
         if (!item) {
             return res.status(404);
@@ -45,6 +47,16 @@ module.exports = function (app) {
             };
             return res.json(verifyResponse);
         }
+    });
+
+    // set the static files location /public/img will be /img for users
+    app.use(serveStatic(__dirname + '/public'));
+
+
+
+
+    app.use('/', function (req, res) {
+        res.sendfile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 
 };
