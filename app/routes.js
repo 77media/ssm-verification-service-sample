@@ -50,13 +50,13 @@ module.exports = function (app) {
     });
 
     // set the static files location /public/img will be /img for users
-    app.use(serveStatic(__dirname + '/public'));
+    app.use(serveStatic(path.resolve('public')));
 
 
 
 
     app.use('/', function (req, res) {
-        res.sendfile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+        res.sendfile(path.resolve('public/index.html')); // load the single view file (angular will handle the page changes on the front-end)
     });
 
 };
