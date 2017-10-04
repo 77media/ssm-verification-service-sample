@@ -11,7 +11,7 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 ```javascript
 {  
-    "confirmationNumber": "4567" 
+    "membershipIdentifier": "4567" 
 }  
 ```
 
