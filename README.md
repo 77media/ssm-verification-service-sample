@@ -11,7 +11,7 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 ```javascript
 {  
-    "membershipIdentifier": "4567" 
+    "membershipId": "4567" 
 }  
 ```
 
