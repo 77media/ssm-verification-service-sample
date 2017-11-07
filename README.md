@@ -1,6 +1,8 @@
 # ssm-verification-service-sample
 Sample user verification service that will either return a formatted user object or false.
 
+
+
 #### request
 A POST is preferred to a GET because more fields can be sent and data is not logged in the url like in a GET.
 
@@ -11,7 +13,7 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 ```javascript
 {  
-    "membershipId": "4567" 
+    "memberIdentifier": "4567"
 }  
 ```
 
@@ -46,7 +48,7 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 ```javascript
 { 
-    "confirmationNumber": "12324"
+    "memberIdentifier": "12324"
 }
 ```
 
@@ -58,7 +60,7 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
 1. Your organization would direct all of your members to register on the SafeSport portal using a special link. This link would be specific to your organization only and would automatically open a dialog box with your organization auto-selected. All your members would have to enter would be their member identifier.
 
-2. Your members would enter their member identifier. This identifier would then be passed to your organization’s web service. Your system would then determine whether or not the identifier is valid.
+2. Once a members has entered their member identifier. This identifier would then be passed to your organization’s web service. Your system would then determine and return whether or not the membership is valid.
 
 3. If the identifier is valid, your organization passes back that it is valid as well as the user’s information to complete the SafeSport registration form. You can pass back as many or as few as fields as you wish. For any field not passed back, users must enter the information themselves.
 
