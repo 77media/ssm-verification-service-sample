@@ -3,7 +3,7 @@ Sample user verification service that will either return a formatted user object
 
 
 
-#### request
+## Request
 A POST is preferred to a GET because more fields can be sent and data is not logged in the url like in a GET.
 
 In production the route should always be secured with SSL encryption via https.
@@ -11,17 +11,59 @@ In production the route should always be secured with SSL encryption via https.
 HTTP POST
 https://ssm-verification-service-sample.azurewebsites.net/api/verify
 
+
+#### Specification
+
+| Field | Required | Type | Notes |
+| --- | --- | --- | --- |
+| memberIdentifier | Yes | String | Different organizations use varying names for this, but it is typically the “Membership Number”.|
+
+
+#### Example Request
+
 ```javascript
 {  
     "memberIdentifier": "4567"
 }  
 ```
 
-#### result
+## Response
+
+The following fields are required in the user registration process. Any field not passed to the platform in the service must be manually filled out by your members.
+
+#### Specification
+
+| Field|Required|Type|Notes |
+| --- | --- | --- | --- |
+| isValid|Yes|Boolean|Whether or not the user is a valid member. |
+| firstName | No | String |  |
+| lastName | No | String | Do not include suffixes such as Jr, Sr, III, etc. |
+| email | No | String |  |
+| dateOfBirth | No | Date | Must follow the format “0001-01-01T00:00:00”. |
+| country | No | String | Must use “United States” and not “USA” or “United States of America”. |
+| region | No | String | State, province, or territory.  Do not use abbreviations such as “IN”, “NSW”, “AB”. |
+| address | No | String |  |
+| address2 | No | String |  |
+| city | No | String |  |
+| postal | No | String |  |
+| gender | No | String | Must follow the format “Male”, “Female”, or null. |
+| position | No | String | A comma separated list of positions held by the user.  Must be chosen from the following: “Administrator”, “Athlete”, “Coach”, “Official”, “Other”, “Parent”, or “Volunteer”. |
+| membershipExpiration | No | Date | This is the date the user’s membership will expire.  Must follow the format “2020-01-01T00:00:00”. |
+
+#### Options
+Membership expiration can be used if you want to require your members to verify again after their membership has expired. Post expiration, your members will not be able to complete courses on the platform until after they have re-verified their membership.
+
+```javascript
+    membershipExpiration: DataTypes.DATE
+```
+**NOTE: ** Additional, non-specified fields in the response will be ignored.
+
+
+
+#### Example Response
 
 ```javascript
 {  
-  "id": 1,
   "isValid": true,
   "firstName": "John",
   "lastName": "Doe",
@@ -35,13 +77,17 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
   "postal": null,
   "gender": null,
   "position": null,
-  "membershipId": "12345",
   "membershipExpiration": "2020-01-01T00:00:00" 
 }
 ```
 
-## invalid verification
+## Invalid Verifications
 
+In the case of a member id that is invalid, the service should return a `400 Bad Request` status.
+
+### Example
+
+#### Request
 
 HTTP POST
 https://ssm-verification-service-sample.azurewebsites.net/api/verify
@@ -52,9 +98,11 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 }
 ```
 
-## sample result
+#### Response
 
-400 Bad Request
+
+> 400 Bad Request
+
 
 ## Process Overview
 
@@ -65,28 +113,3 @@ https://ssm-verification-service-sample.azurewebsites.net/api/verify
 3. If the identifier is valid, your organization passes back that it is valid as well as the user’s information to complete the SafeSport registration form. You can pass back as many or as few as fields as you wish. For any field not passed back, users must enter the information themselves.
 
 4. If the identifier is NOT valid, then your organization passes back that it is invalid. The user then has the opportunity to re-enter or contact your organization for help.
-
-## Organization Registration Fields
-The following fields are required in the user registration process. Any field not passed to the platform in the service must be manually filled out by your members.
-```javascript
-    isValid: DataTypes.BOOLEAN,  
-    firstName: DataTypes.STRING, 
-    lastName: DataTypes.STRING,
-    email: { type: DataTypes.STRING, unique: true},
-    dateOfBirth: DataTypes.DATE,
-    country: DataTypes.STRING,
-    region: DataTypes.STRING,
-    address: DataTypes.STRING,  
-    address2: DataTypes.STRING,
-    city: DataTypes.STRING,
-    postal: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    position: DataTypes.STRING // (Administrator, Athlete, Coach, Official, Other, Parent, Volunteer)  
-
-```
-
-Membership expiration can be used if you want to require your members to verify again after their membership has expired. Post expiration, your members will not be able to complete courses on the platform until after they have re-verified their membership.
-
-```javascript
-    membershipExpiration: DataTypes.DATE
-```

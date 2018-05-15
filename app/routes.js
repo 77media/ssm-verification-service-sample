@@ -67,7 +67,6 @@ module.exports = function (app) {
         } else {
             // TODO: map your own object to the response
             var verifyResponse = {
-                id: item.id,
                 firstName: item.firstName,
                 lastName: item.lastName,
                 email: item.email,
@@ -80,7 +79,6 @@ module.exports = function (app) {
                 postal: item.postal,
                 gender: item.gender,
                 position: item.position,
-                membershipId: item.membershipId,
                 membershipExpiration: item.membershipExpiration,
                 isValid: true
             };
