@@ -55,8 +55,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group hr">
-              <label class="control-label">Confirmation Number </label>
-              <input ng-model="confirmationNumber" type="text" />
+              <label class="control-label">Member Identifier </label>
+              <input ng-model="memberIdentifier" type="text" />
             </div>
             <div class="form-group">
               <button type="button" class="btn btn-wide btn-success" ng-click="search()">Search</button>
@@ -66,24 +66,23 @@
             <div class="panel">
               <pre>
                 <code>
-$scope.data = {
-    confirmationNumber: {{confirmationNumber}}
-};
-console.log($scope.data);
-$http.post('/api/verify/', $scope.data).then(
-    function (success) {
-        console.log(success);
-        $scope.result = success.data;
-        $scope.isLoading = false;
-    },
-    function (error) {
-        $scope.isLoading = false;
-        console.log(error);
-        $scope.result = null;
-        $scope.error = error.data;
-    }
-);
-
+                  $scope.data = {
+                      memberIdentifier: {{memberIdentifier}}
+                  };
+                  console.log($scope.data);
+                  $http.post('/api/verify/', $scope.data).then(
+                      function (success) {
+                          console.log(success);
+                          $scope.result = success.data;
+                          $scope.isLoading = false;
+                      },
+                      function (error) {
+                          $scope.isLoading = false;
+                          console.log(error);
+                          $scope.result = null;
+                          $scope.error = error.data;
+                      }
+                  );
                 </code>
               </pre>
             </div>
@@ -95,7 +94,7 @@ $http.post('/api/verify/', $scope.data).then(
               <li>{{result.id}}</li>
               <li>{{result.firstName}}</li>
               <li>{{result.lastName}}</li>
-              <li>{{result.confirmationNumber}}</li>
+              <li>{{result.memberIdentifier}}</li>
               <li>{{result.membershipId}}</li>
               <li>{{result.membershipExpiration}}</li>
             </ul>

@@ -14,7 +14,7 @@ module.exports = function (app) {
 	* @apiName VerifyUser
 	*/
     app.route('/api/verify').post(function (req, res) {
-        if ((req.body.confirmationNumber % 1 === 0) === false) {
+        if ((req.body.memberIdentifier % 1 === 0) === false) {
             return res.status(500);
         }
         // TODO: query a real database or file
@@ -34,7 +34,7 @@ module.exports = function (app) {
                 postal: "45331",
                 gender: "male",
                 position: "Coach",
-                confirmationNumber: "4567",
+                memberIdentifier: "4567",
                 scanCode: "890",
                 membershipId: "12345",
                 membershipExpiration: membershipExpiration
@@ -53,21 +53,20 @@ module.exports = function (app) {
                 postal: "62471",
                 gender: "female",
                 position: "Parent",
-                confirmationNumber: "1234",
+                memberIdentifier: "1234",
                 scanCode: "111",
                 membershipId: "99999",
                 membershipExpiration: membershipExpiration
             }
         ];
 
-        var item = _.find(users, { confirmationNumber: req.body.confirmationNumber });
+        var item = _.find(users, { memberIdentifier: req.body.memberIdentifier });
 
         if (!item) {
             return res.status(404);
         } else {
             // TODO: map your own object to the response
             var verifyResponse = {
-                id: item.id,
                 firstName: item.firstName,
                 lastName: item.lastName,
                 email: item.email,
@@ -80,7 +79,6 @@ module.exports = function (app) {
                 postal: item.postal,
                 gender: item.gender,
                 position: item.position,
-                membershipId: item.membershipId,
                 membershipExpiration: item.membershipExpiration,
                 isValid: true
             };

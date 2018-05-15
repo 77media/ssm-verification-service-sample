@@ -22,16 +22,16 @@ angular.module('ssmVerificationServiceClientApp', []).config(function () { });
 angular.module('ssmVerificationServiceClientApp')
     .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
-        $scope.confirmationNumber = '4567';
+        $scope.memberIdentifier = '4567';
         $scope.result = null;
 
         //Form submit function
         $scope.search = function () {
-            console.log($scope.confirmationNumber);
+            console.log($scope.memberIdentifier);
             $scope.isLoading = true;
 
             $scope.data = {
-                confirmationNumber: $scope.confirmationNumber
+                memberIdentifier: $scope.memberIdentifier
             };
             console.log($scope.data);
             $http.post('/api/verify/', $scope.data).then(
