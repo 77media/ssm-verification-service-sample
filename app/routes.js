@@ -10,13 +10,48 @@ var _ = require('lodash'),
 module.exports = function (app) {
 
 	/**
-	* @api {post} /verify User
-	* @apiName VerifyUser
+	* @api {post} /verify Verify MemberID [POST]
+    * @apiName VerifyMemberPOST
+    * @apiParam {Number} [memberIdentifier] Membership ID number to look up
 	*/
     app.route('/api/verify').post(function (req, res) {
         if ((req.body.memberIdentifier % 1 === 0) === false) {
-            return res.status(500);
+            return returnStatus(res, 500);
         }
+        
+        const memberData = validateMember(req.body.memberIdentifier);
+
+        if (memberData) {
+            res.json(memberData);
+        }
+        else {
+            returnStatus(res, 404)
+        }
+    });
+
+	/**
+	* @api {get} /verify Verify MemberID [GET]
+    * @apiName VerifyMemberGET
+    * @apiParam {Number} [memberIdentifier] Membership ID number to look up
+	*/
+    app.route('/api/verify').get(function (req, res) {
+        const params = req.query;
+        
+        if ((params.length === 0) || ((params.memberIdentifier % 1 === 0) === false)) {
+            return returnStatus(res, 500);
+        }
+        
+        const memberData = validateMember(params.memberIdentifier);
+
+        if (memberData) {
+            res.json(memberData);
+        }
+        else {
+            returnStatus(res, 404);
+        }
+    });
+
+    function validateMember(memberId) {
         // TODO: query a real database or file
         var membershipExpiration = new Date(2020, 1, 1, null, null, null, null);
         var users = [
@@ -36,7 +71,6 @@ module.exports = function (app) {
                 position: "Coach",
                 memberIdentifier: "4567",
                 scanCode: "890",
-                membershipId: "12345",
                 membershipExpiration: membershipExpiration
             },
             {
@@ -55,15 +89,14 @@ module.exports = function (app) {
                 position: "Parent",
                 memberIdentifier: "1234",
                 scanCode: "111",
-                membershipId: "99999",
                 membershipExpiration: membershipExpiration
             }
         ];
 
-        var item = _.find(users, { memberIdentifier: req.body.memberIdentifier });
+        var item = _.find(users, { memberIdentifier: memberId });
 
         if (!item) {
-            return res.status(404);
+            return null;
         } else {
             // TODO: map your own object to the response
             var verifyResponse = {
@@ -80,11 +113,16 @@ module.exports = function (app) {
                 gender: item.gender,
                 position: item.position,
                 membershipExpiration: item.membershipExpiration,
+                memberIdentifier: item.memberIdentifier,
                 isValid: true
             };
-            return res.json(verifyResponse);
+            return verifyResponse;
         }
-    });
+    };
+
+    function returnStatus(res, status) {
+        res.status(status).end();
+    }
 
     // set the static files location /public/img will be /img for users
     app.use(serveStatic(path.resolve('public')));

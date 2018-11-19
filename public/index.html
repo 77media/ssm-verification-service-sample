@@ -88,17 +88,16 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <p> Result
-            <ul ng-if="result">
-              <li>{{result.id}}</li>
-              <li>{{result.firstName}}</li>
-              <li>{{result.lastName}}</li>
-              <li>{{result.memberIdentifier}}</li>
-              <li>{{result.membershipId}}</li>
-              <li>{{result.membershipExpiration}}</li>
-            </ul>
-          </p>
+        <h3>Results</h3>
+        <div ng-if="result" class="well well-sm">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="field in fields"><strong style="margin-right:5em">{{field}}:</strong>{{result[field]}}</li>
+          </ul>
+        </div>
+        <div ng-if="error" class="well well-sm">
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-danger">Invalid request or members ID</li>
+          </ul>
         </div>
       </form>
     </div>
