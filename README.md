@@ -36,7 +36,7 @@ HTTP *\[POST\] https://ssm-verification-service-sample.azurewebsites.net/api/ver
 
 **Example Request**
 
-HTTP *\[GET\] https://ssm-verification-service-sample.azurewebsites.net/api/verify??memberIdentifier=4567*
+HTTP *\[GET\] https://ssm-verification-service-sample.azurewebsites.net/api/verify?memberIdentifier=4567*
 
 <br />
 ___
