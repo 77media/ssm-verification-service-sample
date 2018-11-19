@@ -4,6 +4,7 @@
   "description": "Sample user verification service that will either return a formatted user object or false.",
   "main": "index.js",
   "scripts": {
+    "postinstall": "bower install --config.interactive=false",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,7 +32,7 @@
     "lodash": "^4.17.4",
     "method-override": "^2.3.7",
     "serve-static": "^1.12.3",
-    "socket.io":"^2.0.3",
+    "socket.io": "^2.0.3",
     "winston": "^2.3.1"
   }
 }
