@@ -25,7 +25,8 @@ module.exports = function (app) {
             res.json(memberData);
         }
         else {
-            returnStatus(res, 404)
+            res.status(404)
+            res.json({isValid: false})
         }
     });
 

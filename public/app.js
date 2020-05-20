@@ -40,11 +40,12 @@ angular.module('ssmVerificationServiceClientApp')
                     $scope.result = success.data;
                     $scope.fields = Object.keys(success.data);
                     $scope.isLoading = false;
+                    $scope.error = null;
                 },
                 function (error) {
                     $scope.isLoading = false;
                     console.log(error);
-                    $scope.result = null;
+                    $scope.result = error.data;
                     $scope.error = error.data || ("[" + error.status + "] "+ error.statusText);
                 }
             );
