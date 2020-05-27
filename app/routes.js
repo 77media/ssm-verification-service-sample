@@ -26,7 +26,13 @@ module.exports = function (app) {
         }
         else {
             res.status(404)
-            res.json({isValid: false})
+            res.json({
+                isValid : false,  	
+                firstName : "",
+                lastName : "",
+                email : "",
+                dateOfBirth : "",
+              })
         }
     });
 
