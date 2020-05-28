@@ -16,7 +16,7 @@ module.exports = function (app) {
 	*/
     app.route('/api/verify').post(function (req, res) {
         if ((req.body.memberIdentifier % 1 === 0) === false) {
-            return returnStatus(res, 500);
+            return returnStatus(res, 400);
         }
         
         const memberData = validateMember(req.body.memberIdentifier);
@@ -25,7 +25,7 @@ module.exports = function (app) {
             res.json(memberData);
         }
         else {
-            res.status(404)
+            res.status(200)
             res.json({
                 isValid : false,  	
                 firstName : "",

@@ -89,8 +89,24 @@
             </div>
           </div>
         </div>
-        <div ng-if="result && !error" >
-          <h3>JSON Response - <span style="color: green;">Successful</span></h3>
+        <div ng-if="result && result.isValid" >
+          <h3>JSON Response - <span style="color: green;">Valid</span></h3>
+            <pre>
+              <code>
+                HTTP/1.1 200 OK
+                Content-Type: application/json
+                {
+                  isValid : {{result.isValid}},  	
+                  firstName : "{{result.firstName}}",
+                  lastName : "{{result.lastName}}",
+                  email : "{{result.email}}",
+                  dateOfBirth : "{{result.dateOfBirth}}",
+                }
+              </code>
+            </pre>
+        </div>
+        <div ng-if="result && !result.isValid" >
+          <h3>JSON Response - <span style="color: red;">Invalid</span></h3>
             <pre>
               <code>
                 HTTP/1.1 200 OK
@@ -111,13 +127,6 @@
               <code>
                 HTTP/1.1 404 Not Found
                 Content-Type: application/json
-                {
-                  isValid : {{result.isValid}},  	
-                  firstName : "{{result.firstName}}",
-                  lastName : "{{result.lastName}}",
-                  email : "{{result.email}}",
-                  dateOfBirth : "{{result.dateOfBirth}}",
-                }
               </code>
             </pre>
         </div>
