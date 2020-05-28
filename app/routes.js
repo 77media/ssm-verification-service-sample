@@ -32,7 +32,7 @@ module.exports = function (app) {
                 lastName : "",
                 email : "",
                 dateOfBirth : "",
-              })
+              });
         }
     });
 
